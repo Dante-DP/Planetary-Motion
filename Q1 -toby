@@ -1,0 +1,79 @@
+import random 
+import numpy as np
+import matplotlib.pyplot as plt
+import numpy.linalg as lag
+
+# Question 1.1 [core]
+
+def acc(x,k,m):
+    return - k / m * x
+
+def x_v_next(x,v,k,m,dt):
+    a1=acc(x,k,m)
+    e1 = x + v * dt + 0.5 * a1 * dt**2
+    #e1 temp variable for x_k+1
+    a2=acc(e1,k,m)
+    e2 = v + 0.5 * (a1 + a2) * dt
+    #e2 temp variable for v_k+1
+    return e1,e2
+    # returns tuple: r_k+1, v_k+1
+
+def verlet(x0,v0,k,m,dt,tmin,tmax):
+    n_steps=int((tmax - tmin) / dt )+ 1
+    t=np.linspace(tmin,tmax,n_steps)
+    e1=[x0]
+    e2=[v0]
+    for i in range(n_steps -1):
+        x_k,v_k=e1[i],e2[i]
+        x_next,v_next = x_v_next(x_k,v_k,k,m,dt)
+        e1.append(x_next)
+        e2.append(v_next)
+    return t,e1,e2
+
+def exact_sol(x0,v0,k,m,dt,tmin,tmax):
+    n_steps=int((tmax - tmin) / dt )+ 1
+    t=np.linspace(tmin,tmax,n_steps)
+    w=(k/m)**0.5
+    e1=[x0 * np.cos(w*i) + v0 / w * np.sin(w*i) for i in t]
+    e2=[-x0*w*np.sin(w*i) + v0 * np.cos(w*i) for i in t]
+    return t,e1,e2
+
+tmax=30
+tmin=0
+dt=0.01
+k=m=1
+x0,v0=1,1
+np.set_printoptions( suppress=True)
+
+t , x_aprox , v_aprox = verlet(x0,v0,k,m,dt,tmin,tmax)
+
+t , x_exact , v_exact = exact_sol(x0,v0,k,m,dt,tmin,tmax)
+
+fig , ax = plt.subplots(nrows=2 , ncols=2 , figsize=(25,25))
+
+
+ax1=ax[0,0]
+ax1.plot(t,x_aprox)
+ax1.set_xlabel('t' , fontsize=20)
+ax1.set_ylabel('x(t)' , fontsize=20)
+ax1.set_title('Verlet Algorithm' , fontsize=35)
+
+ax2=ax[0,1]
+ax2.plot(x_aprox,v_aprox)
+ax2.set_xlabel('x(t)' , fontsize=20)
+ax2.set_ylabel('v(t)' , fontsize=20)
+ax2.set_title('Verlet Algorithm' , fontsize=35)
+
+ax3=ax[1,0]
+ax3.plot(t,x_exact)
+ax3.set_xlabel('t' , fontsize=20)
+ax3.set_ylabel('x' , fontsize=20)
+ax3.set_title('Exact Solution' , fontsize=35)
+
+ax4=ax[1,1]
+ax4.plot(x_exact,v_exact)
+ax4.set_xlabel('x(t)' , fontsize=20)
+ax4.set_ylabel('v(t)' , fontsize=20)
+ax4.set_title('Exact Solution' , fontsize=35)
+
+plt.show()
