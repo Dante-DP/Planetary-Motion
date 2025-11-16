@@ -63,7 +63,7 @@ for i in range(N - 1):
     v_verlet_alg[i+1] = updated_v
 
 plt.figure() #plot for numerical x(t)
-plt.plot(t, x_verlet_alg, label='Numerical x(t)')
+plt.plot(t, x_verlet_alg, 'orange', linestyle=':', label='Numerical x(t)')
 plt.xlabel('t')
 plt.ylabel('x')
 plt.title('Harmonic Oscillator: Numerical x(t) with Verlet Algorithm')
@@ -71,7 +71,7 @@ plt.legend()
 plt.grid(True)
 
 plt.figure() #plot for numerical (x,v) - the Phase-space
-plt.plot(x_verlet_alg, v_verlet_alg, label='Numerical (x,v)')
+plt.plot(x_verlet_alg, v_verlet_alg, 'orange', linestyle=':', label='Numerical (x,v)')
 plt.xlabel('x')
 plt.ylabel('v')
 plt.title('Verlet Solution : (x,v) plot')
@@ -80,7 +80,7 @@ plt.grid(True)
 
 plt.figure() #the comparison plots for x(t)
 plt.plot(t, x_exact, label='Exact x(t)')
-plt.plot(t, x_verlet_alg, '--', label='Numerical x(t)')
+plt.plot(t, x_verlet_alg, color='orange', linestyle=':', label='Numerical x(t)')
 plt.xlabel('t')
 plt.ylabel('x')
 plt.title('Exact vs Numerical: x(t) over t')
@@ -89,7 +89,7 @@ plt.grid(True)
 
 plt.figure() #the comparison plots for (x,v) - the Phase-space
 plt.plot(x_exact, v_exact, label='Exact (x,v)')
-plt.plot(x_verlet_alg, v_verlet_alg, '--', label='Numerical (x,v)')
+plt.plot(x_verlet_alg, v_verlet_alg, color='orange', linestyle=':', label='Numerical (x,v)')
 plt.xlabel('x')
 plt.ylabel('v')
 plt.title('Exact vs Numerical: (x,v)')
