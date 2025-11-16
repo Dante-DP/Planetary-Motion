@@ -1,2 +1,14 @@
-G = 6.67348e-11  # Gravitational constant
+# Gravitational constant
+G = 6.67348e-11              # (in m^3 / kgs^2 )
 
+# Sun values
+m_sun = 1.988420392e30       # Mass of sun (in kg)
+r_sun = 696340e3             # Radius of sun (in m)
+
+# Earth values
+m_earth = 5.972000000e24     # Mass of Earth (in kg)
+r_earth = 6371e3             # Radius of Earth (in m)
+
+# Moon values
+m_moon = 7.345828157e22      # Mass of the Moon (in kg)
+r_moon = 1737e3              # Radius of the Moon (in m)
