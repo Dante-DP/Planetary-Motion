@@ -7,8 +7,8 @@ k = 1.0
 omega = np.sqrt(k/m)
 
 # Initial conditions
-x0 = 1.0      # initial position
-v0 = 0.0      # initial velocity
+x0 = 1.0      
+v0 = 0.0      
 
 # Max time and step size
 t_max = 20.0
