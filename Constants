@@ -12,3 +12,10 @@ r_earth = 6371e3             # Radius of Earth (in m)
 # Moon values
 m_moon = 7.345828157e22      # Mass of the Moon (in kg)
 r_moon = 1737e3              # Radius of the Moon (in m)
+
+# Astronomical Constants
+R = 149.6e9                  # 1AU in meters
+
+# Time Values
+hr1 = 3600                   # Time in 1 Hour
+yr1 = 365.25*24*3600         # Time in 1 year
