@@ -1,0 +1,54 @@
+import numpy.linalg as lag
+
+# Setup
+s0 = np.sqrt(G * m_sun / R) # Orbital Speed of the Earth-Like Planet
+r0 = np.array([R,0]) # Initial position vector of the Planet, Starting on the +ve x axis.
+v0 = np.array([0, s0]) #Initial velocity vector of the planet (Perpendicular to the radius)
+
+t = np.arange(0, yr1+hr1, hr1) # Time Array starting at 0, ending at 1 year, incrementing by an hour.
+N = len(t) # Number of Increments of array t
+
+# Results Storing arrays
+r = np.zeros((N, 2))
+v = np.zeros((N,2)) # Both Matrices initialised at 0 to store data.
+r[0] = r0
+v[0] = v0
+
+# Gravitational Acceleration
+def gAcceleration(x):
+    dist = lag.norm(x)
+    return -G * m_sun * x / dist**3 # By formula
+
+# Verlet Integration Loop (variable_np1 = variable_{n+1})
+a_n = gAcceleration(r[0]) # a_{n} is the initial gravitational acceleration
+for i in range(N-1):
+    # Updating Position, Acceleration, Velocity
+    r_np1 = r[i] + v[i]*hr1 + 0.5*a_n*(hr1**2) # r_{n+1}  is updated
+    a_np1 = gAcceleration(r_np1) # a_{n+1} is updated
+    v_np1 = v[i] + 0.5*(a_n + a_np1)*hr1 # v_{n+1} is updated
+
+    #Storing Variables
+    r[i+1] = r_np1
+    v[i+1] = v_np1
+    a_n = a_np1
+
+# Orbit Plot
+plt.figure(figsize=(6,6))
+plt.plot(r[:,0],r[:,1], label='Planet Trajectory')
+plt.scatter(0,0,color='yellow',s=100,label='Sun')
+plt.xlabel('x(m)')
+plt.ylabel('y(m)')
+plt.title('Simulation of an Earth-Like planets orbit')
+plt.legend(loc='upper right')
+plt.axis('equal')
+plt.grid(True)
+plt.show()
+
+# Radius Over Time
+plt.figure()
+plt.plot(t/(24*hr1), lag.norm(r, axis=1))
+plt.xlabel('Time (Days)')
+plt.ylabel('Distance from the sun (m)')
+plt.title('Radius changing over time')
+plt.grid(True)
+plt.show() 
