@@ -197,7 +197,7 @@ def fine_scan(tc, window_hr=12, dt=10, dt_skip=300):
 
 # ======== Convert seconds to datetime ========
 
-initialTime = datetime(2010, 7, 21, 0, 0, 0) # Our Initial Time that we work from provided by the booklet.
+initialTime = datetime(2010, 6, 21, 0, 0, 0) # Our Initial Time that we work from provided by the booklet.
 
 # Following function converts the seconds into time
 def dateConversion(t):
