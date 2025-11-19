@@ -94,7 +94,7 @@ ax1.legend(loc='upper right')
 
 ax2=ax[1] 
 T_Energy_Change_Percentage=np.array([(Energy[i][2]-Energy[0][2])/Energy[0][2]*100 for i in range(len(t))]) #calculates percentage error against initial energy
-ax2.plot(t_days,Energy_change)
+ax2.plot(t_days,T_Energy_Change_Percentage)
 ax2.set_title('Percentage Change of Total Energy')
 ax2.set_xlabel('Time (Days)')
 ax2.set_ylabel('Percentage Change from Starting Value (%)')
