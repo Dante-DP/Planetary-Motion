@@ -1,0 +1,91 @@
+import numpy as np
+import numpy.linalg as lag
+import matplotlib.pyplot as plt
+from Constants import G, m_earth, m_moon, hr1
+
+# basic set-up
+d_EM = 3.844e8                                # mean Earth–Moon distance (m)
+r0 = np.array([d_EM, 0.0])                    # start on +x
+v0 = np.array([0.0, np.sqrt(G*m_earth/d_EM)]) # circular-speed along +y
+
+T_days = 35.0
+dt_hours = 0.5
+T = T_days*24*hr1
+dt = dt_hours*hr1
+t = np.arange(0.0, T+dt, dt)
+N = len(t)
+
+# acceleration and energies
+def a_moon(r):
+    d = lag.norm(r)
+    return -G*m_earth*r/d**3
+
+def energies(r, v):
+    K = 0.5*m_moon*np.dot(v, v)
+    U = -G*m_earth*m_moon/lag.norm(r)
+    return K, U, K+U
+
+# velocity-Verlet
+r = np.zeros((N, 2))
+v = np.zeros((N, 2))
+K = np.zeros(N)
+U = np.zeros(N)
+E = np.zeros(N)
+
+r[0], v[0] = r0, v0
+K[0], U[0], E[0] = energies(r[0], v[0])
+
+for i in range(N-1):
+    a_n   = a_moon(r[i])
+    r_np1 = r[i] + v[i]*dt + 0.5*a_n*dt**2
+    a_np1 = a_moon(r_np1)
+    v_np1 = v[i] + 0.5*(a_n + a_np1)*dt
+    r[i+1], v[i+1] = r_np1, v_np1
+    K[i+1], U[i+1], E[i+1] = energies(r_np1, v_np1)
+
+# numerical period: upward crossing of +x-axis
+cross = []
+for i in range(1, N):
+    if r[i-1,1] < 0 <= r[i,1] and v[i,1] > 0:
+        w = -r[i-1,1]/(r[i,1]-r[i-1,1] + 1e-16)
+        cross.append(t[i-1] + w*(t[i]-t[i-1]))
+
+period_num = None
+if len(cross) >= 2:
+    period_num = cross[1] - cross[0]
+    print(f"Numerical period: {period_num/(24*hr1):.2f} days")
+
+# Kepler prediction for circular orbit
+period_th = 2*np.pi*np.sqrt(d_EM**3/(G*m_earth))
+print(f"Theoretical period: {period_th/(24*hr1):.2f} days")
+
+if period_num is not None:
+    err = abs(period_num - period_th)/period_th
+    print(f"Relative error: {100*err:.3f}%")
+
+# energy drift
+dE = (E - E[0])/E[0]
+print(f"Max |ΔE/E0|: {100*np.max(np.abs(dE)):.4f}%  (dt={dt_hours} h)")
+
+# plots
+t_days = t/(24*hr1)
+plt.figure(figsize=(6,6))
+plt.plot(0,0,'yo',ms=9,label='Earth')
+plt.plot(r[:,0], r[:,1], 'b-', label='Moon')
+plt.axis('equal'); plt.grid(True)
+plt.xlabel('x (m)'); plt.ylabel('y (m)')
+plt.title('Earth–Moon orbit (Verlet)')
+plt.legend(); plt.show()
+
+plt.figure(figsize=(8,4))
+plt.plot(t_days, lag.norm(r,axis=1)/1e6, 'k-')
+plt.grid(True); plt.xlabel('Time (days)')
+plt.ylabel('Distance from Earth (×10⁶ m)')
+plt.title('Radius vs time'); plt.show()
+
+plt.figure(figsize=(8,4))
+plt.plot(t_days, K, label='Kinetic')
+plt.plot(t_days, U, label='Potential')
+plt.plot(t_days, E, label='Total')
+plt.grid(True); plt.xlabel('Time (days)'); plt.ylabel('Energy (J)')
+plt.title('Energies'); plt.legend(); plt.show()
