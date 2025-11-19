@@ -1,0 +1,125 @@
+# Question 1.3 [core] ------------------
+
+print('---------------------------------------------------------------------------------------------------')
+print('Is the Orbit a Closed Loop?')
+print('---------------------------------------------------------------------------------------------------')
+print('')
+print(f'For our simulation we have r0 = {r[0]} which equals R m in the x direction.')
+print(f'We also have, v0 = {v[0]} which is aproximately 29800 m/s in the y direction.')
+#Question asked to verify these values^
+print('')
+
+start_r=np.array([r[0][0],0])
+end_r=np.array([r[len(t)-1][0],r[len(t)-1][1]])
+#Defines the start and end position for simulated orbit
+
+plt.figure()
+plt.grid(True)
+plt.plot(r[:,0],r[:,1], label='Planet Trajectory')
+plt.scatter(start_r[0],0,color='green',s=70,label='Start')
+plt.scatter(end_r[0], end_r[1],color='red',s=70,label='End')
+plt.xlabel('x(m)')
+plt.ylabel('y(m)')
+plt.title('Endpoints of Simulated Orbit')
+plt.legend(loc='upper right')
+plt.axis('equal')
+plt.xlim(1.49e11,1.51e11)
+plt.ylim(-1e9,1e9)
+plt.show()
+#Same plot from Q2. Have adjusted x and y axis limits too zoom in on start and end point.
+
+print(f'Our Starting Position = {start_r} and our Ending Position = {end_r} (in metres)')
+Close_error=lag.norm(start_r-end_r) #distance between start and end in m
+Orbit_length= 2 * np.pi * R #circumfernece of expected orbit
+Percentage_close_error=Close_error/Orbit_length*100 #computes percentage difference between expected vs total distance travelled in orbit
+print(f'The distance error between start and end = {Close_error:.2} m')
+print(f'Compared to the total length of orbit this generates a percentage error = {Percentage_close_error:.5f} %')
+print('---------------------------------------------------------------------------------------------------')
+print('')
+print('')
+print('')
+
+
+
+print('---------------------------------------------------------------------------------------------------')
+print('Conservation of Energy')
+print('---------------------------------------------------------------------------------------------------')
+
+def System_energy(r,v,m_sun=m_sun,m_earth=m_earth): #Inputs are the position vand velocity vectors. Mass inputs are optional.
+    Kinetic = 0.5 * m_earth * np.dot(v,v)
+    Potential = -G  * m_earth * m_sun / lag.norm(r)
+    Total = Kinetic + Potential
+    return Kinetic, Potential, Total
+#Have defined this as a function so we can reuse in Q4 if wanted. Returns kinetic, potential and total energy of Earth at any given point.
+
+Energy=np.zeros((N,3)) #stores kinetic pootential and total energy at each point in simulatted orbit using the for loop.
+for i in range(N):
+    r_current=r[i]
+    v_current=v[i]
+    Energy[i] = System_energy(r_current,v_current,m_sun,m_earth)
+
+
+
+t_days=t/(24*hr1) #to be used as x axis in many plots
+
+plt.figure()
+plt.plot(t_days,Energy[:,0], label=('Kinetic'))
+plt.plot(t_days,Energy[:,1] , label='Potential')
+plt.plot(t_days,Energy[:,2],label='Total')
+plt.xlabel('Time (Days)')
+plt.ylabel('Energy (J)')
+plt.title('Conservation of Energies')
+plt.legend()
+plt.grid(True)
+plt.show()
+#plots all three energies against time in days.
+
+fig,ax=plt.subplots(nrows=1, ncols=2, figsize=(12,6))
+ax1=ax[0]
+
+
+ax1.plot(t_days,Energy[:,2],label='Total Energy')
+max_en=max(Energy[:,2])
+min_en=min(Energy[:,2])
+en_range=abs(max_en-min_en)
+ax1.plot(t_days,[max_en for i in t], color='g',linestyle='--',label='Max')
+ax1.plot(t_days,[min_en for i in t], color='r',linestyle='--',label='Min')
+ax1.set_title('Close up of Total Energy over Time')
+ax1.set_ylabel('Energy (J)')
+ax1.set_xlabel('Time (Days)')
+ax1.set_ylim(min_en-en_range*0.2,max_en+en_range*0.2)
+ax1.grid(True)
+ax1.legend(loc='upper right')
+#this is a graph of the total energy but heavily zoomed in on the y axis
+
+ax2=ax[1] 
+T_Energy_Change_Percentage=np.array([(Energy[i][2]-Energy[0][2])/Energy[0][2]*100 for i in range(len(t))]) #calculates percentage error against initial energy
+ax2.plot(t_days,Energy_change)
+ax2.set_title('Percentage Change of Total Energy')
+ax2.set_xlabel('Time (Days)')
+ax2.set_ylabel('Percentage Change from Starting Value (%)')
+ax2.grid(True)
+plt.show()
+#graph shows percentage error of total energy only
+
+
+print(f'Our maximum absloute energy percentage error is {max(abs(T_Energy_Change_Percentage))} % ~ {max(abs(T_Energy_Change_Percentage)):.12f} %')
+print('---------------------------------------------------------------------------------------------------')
+print('')
+print('')
+print('')
+
+
+
+print('---------------------------------------------------------------------------------------------------')
+print('Analytical derivation of intial speed')
+print('---------------------------------------------------------------------------------------------------')
+print('')
+print('Equating formula motion and gravitation equatioons give : GMm/R**2=mv**2/R')
+print('Rearranging in terms of v gives : v**2=Gm/R')
+print('so v = sqrt Gm/R')
+print(f'So v0 = sqrt {G} * {m_sun} / {R}')
+print(f'v0 = {(G*m_sun/R)**0.5} m/s')
+print('---------------------------------------------------------------------------------------------------')
+
+#End of Q3
