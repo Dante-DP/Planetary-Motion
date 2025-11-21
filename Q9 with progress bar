@@ -309,4 +309,4 @@ def print_eclipses(eclipse_list):
 
 eclipses = extract_eclipses(refined_results)
 print_eclipses(eclipses)
-print("Total Runtime:",time.time() - start, "seconds")
+print("\nTotal Runtime:",time.time() - start, "seconds")
