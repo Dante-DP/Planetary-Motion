@@ -1,6 +1,6 @@
 ## Introduction
 
-In this project, we explore the motion of planets through a vast range of numerical techniques. We start by verifying the accuracy of the velocity Verlet algorithm in solving Newton's equations of motion for a one-dimensional harmonic oscillator by plotting both numerical and analytical solutions. 
+In this project, we explore the motion of planets through a vast range of numerical techniques. We start by verifying the accuracy of the velocity Verlet algorithm in solving Newton's equations of motion for a one-dimensional harmonic oscillator. 
 Following this, we estimate how the Earth moves around the sun by simulating an earth-like planet's orbit given certain assumptions, which are stated later on.
 Our fourth section looks at how varying starting conditions can lead to different orbital shapes: ellipses, hyperbolae and, in a specific case, a parabola. For bounded elliptical trajectories we compute perihelion, aphelion, eccentricity, and
 other orbital parameters to further explore what determines the shape of an orbit. We also examined how escape velocity is determined from energy considerations, comparing our numerical results with theoretical predictions.
