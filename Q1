@@ -102,5 +102,11 @@ plt.grid(True)
 
 plt.show
 
+#Graph interpretations q.1:
+We have simulated the motion of an orbiting planet, using both the exact solution and the numerical solution, using the Verlet Algorithm.
+Our first two graphs show the exact position x(t), giving us a sinusoidal curve and a phase-space trajectory (x,v), from which we get an elliptical curve. 
+These perfect, smooth shapes demonstrate conservation of energy within our system. Using the Verlet algorithm, for the next two graphs of our numerical solutions, we find that these curves closely follow the previous two respectively.
+The purpose of 0.01 as a time step ensures any deviations in the two different solutions are minimised, which allows the numerical solution to mimmick the exact orbit over time closely.
+
     
 
