@@ -52,3 +52,8 @@ plt.ylabel('Distance from the sun (m)')
 plt.title('Radius changing over time')
 plt.grid(True)
 plt.show() 
+
+#This is a simulation of an earth-like planet around the sun using 2D Verlet integration. We start the planet initially at R = 149.6 X 10^9 m in the x direction.
+We have the initial velocity perpendicular to R in order to keep the orbit in a circular trajectory. Our first plot shows the trajectory of the planet around the sun and we see we have an almost perfect circular orbit.
+Consequently, we can see that the integration here conserves the angular momentum. Our second plot is the distance of the planet from the sun against time.
+We can see this stays fairly constant, indicating the planet remains at a stable orbit distance - its not drifting closer or further. 
