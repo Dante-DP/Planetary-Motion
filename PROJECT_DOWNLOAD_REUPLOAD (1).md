@@ -2,7 +2,7 @@
  "cells": [
   {
    "cell_type": "markdown",
-   "id": "f60368b0",
+   "id": "7820f1ba",
    "metadata": {},
    "source": [
     "# Planetary Motion\n",
@@ -20,8 +20,16 @@
     "## Constants\n",
     "The constants which we will use throughout the project are listed below\n",
     "\n",
-    "\n",
-    "```python\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "2fe80548",
+   "metadata": {},
+   "outputs": [],
+   "source": [
     "# Gravitational constant\n",
     "G = 6.67348e-11              # (in m^3 / kgs^2 )\n",
     "\n",
@@ -42,14 +50,29 @@
     "\n",
     "# Time Values\n",
     "hr1 = 3600                   # Time in 1 Hour\n",
-    "yr1 = 365.25*24*3600         # Time in 1 year\n",
-    "```\n",
+    "yr1 = 365.25*24*3600         # Time in 1 year"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "3bace9a9",
+   "metadata": {},
+   "source": [
+    "\n",
     "\n",
     "## Libraries\n",
     "Below is a list of all the libraries which must be imported for this project:\n",
     "\n",
-    "\n",
-    "```python\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "01995407",
+   "metadata": {},
+   "outputs": [],
+   "source": [
     "import numpy as np\n",
     "import matplotlib.pyplot as plt\n",
     "import numpy.linalg as lag\n",
@@ -59,14 +82,29 @@
     "import pandas as pd\n",
     "import time\n",
     "from datetime import datetime, timedelta\n",
-    "from tqdm import tqdm\n",
-    "```\n",
+    "from tqdm import tqdm"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a6da290b",
+   "metadata": {},
+   "source": [
+    "\n",
     "\n",
     "## Q1\n",
     "This first question compares numerical and analytical solutions to differential equations describing a one-dimensional harmonic oscillator. We go on to plot the particle's motion over time, as well as its phase-space trajectory which shows how velocity varies with displacement.\n",
     "\n",
-    "\n",
-    "```python\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c0c2fb36",
+   "metadata": {},
+   "outputs": [],
+   "source": [
     "# Parameters\n",
     "m = 1.0       \n",
     "k = 1.0   \n",
@@ -166,8 +204,15 @@
     "plt.legend()\n",
     "plt.grid(True)\n",
     "\n",
-    "plt.show\n",
-    "```\n",
+    "plt.show"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ae82b01f",
+   "metadata": {},
+   "source": [
+    "\n",
     "\n",
     "\n",
     "    \n",
@@ -221,8 +266,16 @@
     "## Q2\n",
     "We now go on to look at the orbit of an Earth-like planet around the sun. We apply Newton's law of gravitation in a simplified two-body system where the Sun is treated as fixed due to its much greater mass. We restrict the orbital motion to the xy-plane, since angular momentum is conserved. This setup provides a simple, yet fairly accurate, framework for simulating the planet's orbital trajectory.\n",
     "\n",
-    "\n",
-    "```python\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "cc0ec8a4",
+   "metadata": {},
+   "outputs": [],
+   "source": [
     "# Setup\n",
     "s0 = np.sqrt(G * m_sun / R) # Orbital Speed of the Earth-Like Planet\n",
     "r0 = np.array([R,0]) # Initial position vector of the Planet, Starting on the +ve x axis.\n",
@@ -274,8 +327,15 @@
     "plt.ylabel('Radius deviation from initial value (m)')\n",
     "plt.title('Numerical deviation of orbital radius over time')\n",
     "plt.grid(True)\n",
-    "plt.show() \n",
-    "```\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "684fdf40",
+   "metadata": {},
+   "source": [
+    "\n",
     "\n",
     "\n",
     "    \n",
@@ -304,12 +364,27 @@
     "Is the orbit a closed loop?\n",
     "First off, let's check we have the correct initial conditions.\n",
     "\n",
-    "\n",
-    "```python\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "bd531ea8",
+   "metadata": {},
+   "outputs": [],
+   "source": [
     "print('')\n",
     "print(f'r0 = {[r0[0] , r0[1]]}m = [R,0]m')\n",
-    "print(f'v0 = {[v0[0],v0[1]]}m/s ≈ [0,29800]m/s ')\n",
-    "```\n",
+    "print(f'v0 = {[v0[0],v0[1]]}m/s ≈ [0,29800]m/s ')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e74833a9",
+   "metadata": {},
+   "source": [
+    "\n",
     "\n",
     "    \n",
     "    r0 = [np.float64(149600000000.0), np.float64(0.0)]m = [R,0]m\n",
@@ -322,8 +397,16 @@
     "\n",
     "To do this we can take a closer look at the start and end points of our plot.\n",
     "\n",
-    "\n",
-    "```python\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d34f29d0",
+   "metadata": {},
+   "outputs": [],
+   "source": [
     "start_r=np.array([r[0][0],0])\n",
     "end_r=np.array([r[len(t)-1][0],r[len(t)-1][1]])\n",
     "#Defines the start and end position for simulated orbit\n",
@@ -347,8 +430,15 @@
     "Orbit_length= 2 * np.pi * R #circumfernece of expected orbit\n",
     "Percentage_close_error=Close_error/Orbit_length*100 #computes percentage difference between expected vs total distance travelled in orbit\n",
     "print(f'The distance error between start and end = {Close_error:.2} m')\n",
-    "print(f'Compared to the total length of orbit this generates a percentage error = {Percentage_close_error:.5f} %')\n",
-    "```\n",
+    "print(f'Compared to the total length of orbit this generates a percentage error = {Percentage_close_error:.5f} %')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7c082d07",
+   "metadata": {},
+   "source": [
+    "\n",
     "\n",
     "\n",
     "    \n",
@@ -367,8 +457,16 @@
     "\n",
     "We now look at the energy of the system and how it varies. Given that we are assuming the orbit is circular, we would expect that both the kinetic and potential energy remian constant.\n",
     "\n",
-    "\n",
-    "```python\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "31091c87",
+   "metadata": {},
+   "outputs": [],
+   "source": [
     "def System_energy(r,v,m_sun=m_sun,m_earth=m_earth): #Inputs are the position vand velocity vectors. Mass inputs are optional.\n",
     "    Kinetic = 0.5 * m_earth * np.dot(v,v)\n",
     "    Potential = -G  * m_earth * m_sun / lag.norm(r)\n",
@@ -427,8 +525,15 @@
     "#graph shows percentage error of total energy only\n",
     "\n",
     "\n",
-    "print(f'Our maximum absloute energy percentage error is {max(abs(T_Energy_Change_Percentage))} % ~ {max(abs(T_Energy_Change_Percentage)):.12f} %')\n",
-    "```\n",
+    "print(f'Our maximum absloute energy percentage error is {max(abs(T_Energy_Change_Percentage))} % ~ {max(abs(T_Energy_Change_Percentage)):.12f} %')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f591d598",
+   "metadata": {},
+   "source": [
+    "\n",
     "\n",
     "\n",
     "    \n",
@@ -478,34 +583,70 @@
     "\n",
     "#### Import required libraries and define constants\n",
     "\n",
-    "\n",
-    "```python\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "600e0936",
+   "metadata": {},
+   "outputs": [],
+   "source": [
     "# Physical constants\n",
     "G = 6.67430e-11\n",
     "M = 1.989e30                 # mass of the Sun (kg)\n",
     "R = 1.496e11                 # 1 AU (m)\n",
     "\n",
     "# Circular velocity at radius R\n",
-    "v_circ = np.sqrt(G*M/R)\n",
+    "v_circ = np.sqrt(G*M/R)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f21f4834",
+   "metadata": {},
+   "source": [
     "\n",
-    "```\n",
     "\n",
     "#### Define the gravitational acceleration \n",
     "\n",
-    "\n",
-    "```python\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b37acb78",
+   "metadata": {},
+   "outputs": [],
+   "source": [
     "def acceleration(r):\n",
     "    x, y = r\n",
     "    dist = np.sqrt(x**2 + y**2)\n",
     "    factor = -G*M / (dist**3)\n",
-    "    return np.array([factor*x, factor*y])\n",
+    "    return np.array([factor*x, factor*y])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "020559df",
+   "metadata": {},
+   "source": [
     "\n",
-    "```\n",
     "\n",
     "#### Implement the velocity Verlet integrator\n",
     "\n",
-    "\n",
-    "```python\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "681f1192",
+   "metadata": {},
+   "outputs": [],
+   "source": [
     "def verlet(r0, v0, dt, steps):\n",
     "    r = np.zeros((steps, 2))\n",
     "    v = np.zeros((steps, 2))\n",
@@ -520,13 +661,28 @@
     "        v[i] = v[i-1] + 0.5*(a + a_new)*dt\n",
     "        a = a_new\n",
     "\n",
-    "    return r, v\n",
-    "```\n",
+    "    return r, v"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "eda523f4",
+   "metadata": {},
+   "source": [
+    "\n",
     "\n",
     "#### Function to compute orbital parameters for elliptical trajectories\n",
     "\n",
-    "\n",
-    "```python\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "cab73814",
+   "metadata": {},
+   "outputs": [],
+   "source": [
     "def orbital_parameters(r):\n",
     "    dist = np.sqrt(r[:,0]**2 + r[:,1]**2)\n",
     "    P = np.min(dist)\n",
@@ -534,15 +690,29 @@
     "    a = (A + P) / 2\n",
     "    b = np.sqrt(A * P)\n",
     "    e = (A - P) / (A + P)\n",
-    "    return P, A, a, b, e\n",
+    "    return P, A, a, b, e"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2fd22f3a",
+   "metadata": {},
+   "source": [
     "\n",
-    "```\n",
     "\n",
     "#### Simulate trajectories for several choices of $\\lambda$\n",
     "\n",
     "\n",
-    "\n",
-    "```python\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "a9f98646",
+   "metadata": {},
+   "outputs": [],
+   "source": [
     "lambdas = [0.6, 0.8, 1.0, 1.2, 1.4, 1.45]\n",
     "\n",
     "dt = 2000\n",
@@ -554,14 +724,28 @@
     "for lam in lambdas:\n",
     "    v0 = np.array([0, lam * v_circ])\n",
     "    r, v = verlet(r0, v0, dt, steps)\n",
-    "    results[lam] = r\n",
+    "    results[lam] = r"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "06008628",
+   "metadata": {},
+   "source": [
     "\n",
-    "```\n",
     "\n",
     "#### Plot the resulting trajectories\n",
     "\n",
-    "\n",
-    "```python\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "9b7fc901",
+   "metadata": {},
+   "outputs": [],
+   "source": [
     "plt.figure(figsize=(7,7))\n",
     "\n",
     "for lam, r in results.items():\n",
@@ -573,8 +757,15 @@
     "plt.ylabel(\"y (m)\")\n",
     "plt.axis(\"equal\")\n",
     "plt.legend()\n",
-    "plt.show()\n",
-    "```\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "dd683f2b",
+   "metadata": {},
+   "source": [
+    "\n",
     "\n",
     "\n",
     "    \n",
@@ -584,8 +775,16 @@
     "\n",
     "#### Compute orbital parameters for the eliptical cases\n",
     "\n",
-    "\n",
-    "```python\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "071dcda4",
+   "metadata": {},
+   "outputs": [],
+   "source": [
     "print(\"Elliptical Orbit Parameters:\\n\")\n",
     "for lam in [0.6, 0.8, 1.0, 1.2]:\n",
     "    P, A, a, b, e = orbital_parameters(results[lam])\n",
@@ -594,8 +793,15 @@
     "    print(f\"  Aphelion  A = {A:.3e} m\")\n",
     "    print(f\"  Semi-major axis a = {a:.3e} m\")\n",
     "    print(f\"  Semi-minor axis b = {b:.3e} m\")\n",
-    "    print(f\"  Eccentricity ε = {e:.4f}\\n\")\n",
-    "```\n",
+    "    print(f\"  Eccentricity ε = {e:.4f}\\n\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f6a3bc0a",
+   "metadata": {},
+   "source": [
+    "\n",
     "\n",
     "    Elliptical Orbit Parameters:\n",
     "    \n",
@@ -631,8 +837,16 @@
     "\n",
     "#### Construct an energy criterion and determine escape velocity\n",
     "\n",
-    "\n",
-    "```python\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "69133e47",
+   "metadata": {},
+   "outputs": [],
+   "source": [
     "def energy(v0):\n",
     "    return 0.5 * v0**2 - G*M/R\n",
     "\n",
@@ -645,9 +859,15 @@
     "print(\"Numerical escape velocity:\", v_escape_num/1000, \"km/s\")\n",
     "\n",
     "v_escape_theory = np.sqrt(2*G*M/R)\n",
-    "print(\"Theoretical escape velocity:\", v_escape_theory/1000, \"km/s\")\n",
+    "print(\"Theoretical escape velocity:\", v_escape_theory/1000, \"km/s\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "96d79322",
+   "metadata": {},
+   "source": [
     "\n",
-    "```\n",
     "\n",
     "    Numerical escape velocity: 42.153537932937844 km/s\n",
     "    Theoretical escape velocity: 42.12786542722697 km/s\n",
@@ -869,8 +1089,16 @@
     "\n",
     "The error increase from start to finish can be attributed to the error of the velocity verlet algorithm being proportional to $(dt)^3$ as well as other modelling assumptions. The classification is correct for most eclipses aside from a select few cases. Below is a plot for the error growth:\n",
     "\n",
-    "\n",
-    "```python\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7ddcffd9",
+   "metadata": {},
+   "outputs": [],
+   "source": [
     "# Run this cell first\n",
     "data = [\n",
     "    (2010.53,  4/60),      # year, error hours\n",
@@ -898,19 +1126,31 @@
     "    (2025.24, 360/60),\n",
     "]\n",
     "\n",
-    "df = pd.DataFrame(data, columns=[\"year\", \"err_hours\"])\n",
-    "```\n",
-    "\n",
-    "\n",
-    "```python\n",
+    "df = pd.DataFrame(data, columns=[\"year\", \"err_hours\"])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "dbb0d274",
+   "metadata": {},
+   "outputs": [],
+   "source": [
     "plt.figure(figsize=(8,5))\n",
     "plt.plot(df[\"year\"], df[\"err_hours\"])\n",
     "plt.xlabel(\"Year\")\n",
     "plt.ylabel(\"Error (hours)\")\n",
     "plt.title(\"Timing error of our model vs NASA\")\n",
     "plt.grid()\n",
-    "plt.show()\n",
-    "```\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "1c607a9d",
+   "metadata": {},
+   "source": [
+    "\n",
     "\n",
     "\n",
     "    \n",
@@ -924,8 +1164,16 @@
     "\\\n",
     "Below is the code we used for Q9:\n",
     "\n",
-    "\n",
-    "```python\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f0d01622",
+   "metadata": {},
+   "outputs": [],
+   "source": [
     "G = 6.67348e-11\n",
     "\n",
     "m_sun = 1.988420392e30\n",
@@ -1229,8 +1477,15 @@
     "\n",
     "eclipses = extract_eclipses(refined_results)\n",
     "print_eclipses(eclipses)\n",
-    "print(\"\\nTotal Runtime:\",time.time() - start, \"seconds\")\n",
-    "```\n",
+    "print(\"\\nTotal Runtime:\",time.time() - start, \"seconds\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "af016d12",
+   "metadata": {},
+   "source": [
+    "\n",
     "\n",
     "    Run time has started\n",
     "    Rough Scan has Started\n",
